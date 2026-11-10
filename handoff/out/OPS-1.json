@@ -1,0 +1,30 @@
+{
+  "task": "OPS-1",
+  "title": "Instagram draft: tensiómetro digital",
+  "payload": {
+    "channel": "instagram",
+    "dry_run": true,
+    "revision": 0,
+    "format_hint": "carousel 1080x1350, 3 slides",
+    "caption": "Tensiómetro digital de brazo: tu control en casa, simple y claro. 🩺\n\nMedí, anotá y llevá tus resultados a la consulta.\n\nConsultá siempre con tu profesional de la salud.\n\n#salud #bienestar #dispositivosmedicos",
+    "api_calls": [
+      {
+        "method": "POST",
+        "url": "https://graph.facebook.com/v27.0/{IG_USER_ID}/media",
+        "body": {
+          "image_url": "{PUBLIC_IMAGE_URL}",
+          "caption": "Tensiómetro digital de brazo: tu control en casa, simple y claro. 🩺\n\nMedí, anotá y llevá tus resultados a la consulta.\n\nConsultá siempre con tu profesional de la salud.\n\n#salud #bienestar #dispositivosmedicos",
+          "access_token": "{TOKEN}"
+        }
+      },
+      {
+        "method": "POST",
+        "url": "https://graph.facebook.com/v27.0/{IG_USER_ID}/media_publish",
+        "body": {
+          "creation_id": "{CONTAINER_ID_FROM_STEP_1}",
+          "access_token": "{TOKEN}"
+        }
+      }
+    ]
+  }
+}

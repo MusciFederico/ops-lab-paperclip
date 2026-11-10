@@ -1,0 +1,14 @@
+{
+  "task": "OPS-3",
+  "title": "Grok Bot handoff brief: awareness post",
+  "payload": {
+    "channel": "grok-bot",
+    "dry_run": true,
+    "revision": 0,
+    "handoff": {
+      "how_it_connects": "Grok Bot custom MCP server / plugin (Settings -> Plugins). Paperclip side: external agent or HTTP adapter.",
+      "instruction": "Task for Grok Bot (dry run, do not publish): prepare a social post draft for \"Tensiómetro digital de brazo\".\nGoal: awareness. Audience: adultos 35-65 que controlan su salud en casa.\nConstraints: Spanish (es_AR), no health or efficacy claims, include a 'consult your healthcare professional' line.\nUse the connected social-media plugin only to LIST scheduling options. Return the draft and wait for human approval before any publish call.",
+      "expected_return": "draft text + suggested schedule; no publish tool call"
+    }
+  }
+}

@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ops Lab · Paperclip</title>
+<style>
+  :root { --bg:#faf8f6; --card:#fff; --ink:#14231f; --mute:#5b6b66; --line:#e4dfd8; --brand:#2a4a43; --accent:#7c5ce0; --ok:#1f7a4d; --wait:#b8741a; }
+  @media (prefers-color-scheme: dark) { :root { --bg:#101a17; --card:#172622; --ink:#eef2ef; --mute:#9db0a9; --line:#2a3d37; --brand:#9bd0c1; --accent:#a58cf5; --ok:#5bd49a; --wait:#f0b25b; } }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif; }
+  main { max-width:880px; margin:0 auto; padding:24px 16px 64px; }
+  h1 { font-size:1.6rem; margin:0 0 4px; } .sub { color:var(--mute); margin:0 0 20px; }
+  .flow { display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin:0 0 24px; color:var(--mute); font-size:.9rem; }
+  .flow b { background:var(--card); border:1px solid var(--line); padding:4px 10px; border-radius:999px; color:var(--ink); font-weight:600; }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:16px; padding:16px; margin:0 0 16px; }
+  .head { display:flex; justify-content:space-between; gap:12px; align-items:flex-start; flex-wrap:wrap; }
+  .id { color:var(--accent); font-weight:700; font-size:.85rem; letter-spacing:.04em; }
+  h2 { font-size:1.05rem; margin:2px 0 0; }
+  .pill { padding:3px 10px; border-radius:999px; font-size:.8rem; font-weight:700; border:1px solid currentColor; white-space:nowrap; }
+  .done { color:var(--ok); } .in_review { color:var(--wait); }
+  .stages { color:var(--mute); font-size:.85rem; margin:8px 0; }
+  details { margin-top:8px; } summary { cursor:pointer; color:var(--brand); font-weight:600; }
+  pre { background:var(--bg); border:1px solid var(--line); border-radius:10px; padding:12px; overflow:auto; font-size:.8rem; max-height:320px; }
+  .msg { border-left:3px solid var(--line); padding:2px 0 2px 10px; margin:10px 0; font-size:.9rem; white-space:pre-wrap; }
+  .msg small { color:var(--mute); display:block; } .foot { color:var(--mute); font-size:.8rem; margin-top:24px; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Ops Lab</h1>
+  <p class="sub">Tareas de Paperclip que generan handoffs hacia Instagram, WhatsApp y Grok Bot. Todo en dry-run.</p>
+  <div class="flow"><b>Operator</b> → <b>Reviewer (agente)</b> → <b>Humano</b> (solo WhatsApp) → <b>done</b></div>
+  <div id="app">Cargando…</div>
+  <p class="foot" id="foot"></p>
+</main>
+<script>
+const esc = s => String(s ?? "").replace(/[&<>]/g, c => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;" }[c]));
+fetch("data/handoffs.json").then(r => r.json()).then(d => {
+  document.getElementById("app").innerHTML = d.tasks.map(t => `
+    <section class="card">
+      <div class="head">
+        <div><div class="id">${esc(t.identifier)}</div><h2>${esc(t.title)}</h2></div>
+        <span class="pill ${esc(t.status)}">${esc(t.status.replace("_"," "))}</span>
+      </div>
+      <div class="stages">Stages: ${t.reviewStages.length ? t.reviewStages.map(esc).join(" → ") : "—"}</div>
+      ${t.payload ? `<details><summary>Payload del handoff (dry-run)</summary><pre>${esc(JSON.stringify(t.payload, null, 2))}</pre></details>` : ""}
+      <details><summary>Historial (${t.thread.length} comentarios)</summary>
+        ${t.thread.map(c => `<div class="msg"><small>${esc(c.author)} · ${esc(new Date(c.at).toLocaleString("es-AR"))}</small>${esc(c.body.replace(/```json[\s\S]*?```/g, "[payload JSON arriba]"))}</div>`).join("")}
+      </details>
+    </section>`).join("");
+  document.getElementById("foot").textContent = "Exportado " + new Date(d.exportedAt).toLocaleString("es-AR") + " desde Paperclip.";
+}).catch(() => { document.getElementById("app").textContent = "No se pudo cargar data/handoffs.json. Corré node scripts/export.mjs."; });
+</script>
+</body>
+</html>

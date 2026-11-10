@@ -1,0 +1,146 @@
+{
+  "company": "Ops Lab",
+  "exportedAt": "2026-11-10T23:37:22.552Z",
+  "tasks": [
+    {
+      "identifier": "OPS-1",
+      "title": "Instagram draft: tensiómetro digital",
+      "status": "done",
+      "awaitingHuman": null,
+      "reviewStages": [
+        "review"
+      ],
+      "payload": {
+        "channel": "instagram",
+        "dry_run": true,
+        "revision": 0,
+        "format_hint": "carousel 1080x1350, 3 slides",
+        "caption": "Tensiómetro digital de brazo: tu control en casa, simple y claro. 🩺\n\nMedí, anotá y llevá tus resultados a la consulta.\n\nConsultá siempre con tu profesional de la salud.\n\n#salud #bienestar #dispositivosmedicos",
+        "api_calls": [
+          {
+            "method": "POST",
+            "url": "https://graph.facebook.com/v27.0/{IG_USER_ID}/media",
+            "body": {
+              "image_url": "{PUBLIC_IMAGE_URL}",
+              "caption": "Tensiómetro digital de brazo: tu control en casa, simple y claro. 🩺\n\nMedí, anotá y llevá tus resultados a la consulta.\n\nConsultá siempre con tu profesional de la salud.\n\n#salud #bienestar #dispositivosmedicos",
+              "access_token": "{TOKEN}"
+            }
+          },
+          {
+            "method": "POST",
+            "url": "https://graph.facebook.com/v27.0/{IG_USER_ID}/media_publish",
+            "body": {
+              "creation_id": "{CONTAINER_ID_FROM_STEP_1}",
+              "access_token": "{TOKEN}"
+            }
+          }
+        ]
+      },
+      "thread": [
+        {
+          "at": "2026-11-10T23:19:24.763Z",
+          "author": "Operator",
+          "body": "**Operator handoff (DRY RUN, nothing was sent)** — channel: `instagram`. First draft.\n\n```json\n{\n  \"channel\": \"instagram\",\n  \"dry_run\": true,\n  \"revision\": 0,\n  \"format_hint\": \"carousel 1080x1350, 3 slides\",\n  \"caption\": \"Tensiómetro digital de brazo: tu control en casa, simple y claro. 🩺\\n\\nMedí, anotá y llevá tus resultados a la consulta.\\n\\nConsultá siempre con tu profesional de la salud.\\n\\n#salud #bienestar #dispositivosmedicos\",\n  \"api_calls\": [\n    {\n      \"method\": \"POST\",\n      \"url\": \"https://graph.facebook.com/v27.0/{IG_USER_ID}/media\",\n      \"body\": {\n        \"image_url\": \"{PUBLIC_IMAGE_URL}\",\n        \"caption\": \"Tensiómetro digital de brazo: tu control en casa, simple y claro. 🩺\\n\\nMedí, anotá y llevá tus resultados a la consulta.\\n\\nConsultá siempre con tu profesional de la salud.\\n\\n#salud #bienestar #dispositivosmedicos\",\n        \"access_token\": \"{TOKEN}\"\n      }\n    },\n    {\n      \"method\": \"POST\",\n      \"url\": \"https://graph.facebook.com/v27.0/{IG_USER_ID}/media_publish\",\n      \"body\": {\n        \"creation_id\": \"{CONTAINER_ID_FROM_STEP_1}\",\n        \"access_token\": \"{TOKEN}\"\n      }\n    }\n  ]\n}\n```\n\nNext: reviewer checks compliance; a human approves before this is marked done."
+        },
+        {
+          "at": "2026-11-10T23:20:02.894Z",
+          "author": "Reviewer",
+          "body": "**Reviewer: APPROVED.** Checks passed: dry_run flag, banned-claims scan, channel rules (opt-out / disclaimer / length)."
+        }
+      ]
+    },
+    {
+      "identifier": "OPS-2",
+      "title": "WhatsApp template: novedades de producto (needs human approval)",
+      "status": "done",
+      "awaitingHuman": null,
+      "reviewStages": [
+        "review",
+        "approval"
+      ],
+      "payload": {
+        "channel": "whatsapp",
+        "dry_run": true,
+        "revision": 0,
+        "audience_rule": "Only contacts with recorded opt-in. Template must be pre-approved in Meta Business Manager.",
+        "api_calls": [
+          {
+            "method": "POST",
+            "url": "https://graph.facebook.com/v27.0/{PHONE_NUMBER_ID}/messages",
+            "body": {
+              "messaging_product": "whatsapp",
+              "to": "{E164_OPTED_IN_NUMBER}",
+              "type": "template",
+              "template": {
+                "name": "novedades_producto",
+                "language": {
+                  "code": "es_AR"
+                },
+                "components": [
+                  {
+                    "type": "body",
+                    "parameters": [
+                      {
+                        "type": "text",
+                        "text": "{FIRST_NAME}"
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          }
+        ],
+        "template_body_for_approval": "Hola {{1}}, te escribimos de la tienda. Tenemos novedades de Tensiómetro digital de brazo que pediste conocer. Ya está disponible con envío a todo el país. Respondé BAJA para dejar de recibir mensajes."
+      },
+      "thread": [
+        {
+          "at": "2026-11-10T23:19:26.843Z",
+          "author": "Operator",
+          "body": "**Operator handoff (DRY RUN, nothing was sent)** — channel: `whatsapp`. First draft.\n\n```json\n{\n  \"channel\": \"whatsapp\",\n  \"dry_run\": true,\n  \"revision\": 0,\n  \"audience_rule\": \"Only contacts with recorded opt-in. Template must be pre-approved in Meta Business Manager.\",\n  \"api_calls\": [\n    {\n      \"method\": \"POST\",\n      \"url\": \"https://graph.facebook.com/v27.0/{PHONE_NUMBER_ID}/messages\",\n      \"body\": {\n        \"messaging_product\": \"whatsapp\",\n        \"to\": \"{E164_OPTED_IN_NUMBER}\",\n        \"type\": \"template\",\n        \"template\": {\n          \"name\": \"novedades_producto\",\n          \"language\": {\n            \"code\": \"es_AR\"\n          },\n          \"components\": [\n            {\n              \"type\": \"body\",\n              \"parameters\": [\n                {\n                  \"type\": \"text\",\n                  \"text\": \"{FIRST_NAME}\"\n                }\n              ]\n            }\n          ]\n        }\n      }\n    }\n  ],\n  \"template_body_for_approval\": \"Hola {{1}}, te escribimos de la tienda. Tenemos novedades de Tensiómetro digital de brazo que pediste conocer. Ya está disponible con envío a todo el país. Respondé BAJA para dejar de recibir mensajes.\"\n}\n```\n\nNext: reviewer checks compliance; a human approves before this is marked done."
+        },
+        {
+          "at": "2026-11-10T23:19:29.710Z",
+          "author": "Reviewer",
+          "body": "**Reviewer: APPROVED.** Checks passed: dry_run flag, banned-claims scan, channel rules (opt-out / disclaimer / length)."
+        },
+        {
+          "at": "2026-11-10T23:22:15.927Z",
+          "author": "local-board",
+          "body": "Approved for dry-run demonstration only.\n\nNo external message was sent or authorized."
+        }
+      ]
+    },
+    {
+      "identifier": "OPS-3",
+      "title": "Grok Bot handoff brief: awareness post",
+      "status": "done",
+      "awaitingHuman": null,
+      "reviewStages": [
+        "review"
+      ],
+      "payload": {
+        "channel": "grok-bot",
+        "dry_run": true,
+        "revision": 0,
+        "handoff": {
+          "how_it_connects": "Grok Bot custom MCP server / plugin (Settings -> Plugins). Paperclip side: external agent or HTTP adapter.",
+          "instruction": "Task for Grok Bot (dry run, do not publish): prepare a social post draft for \"Tensiómetro digital de brazo\".\nGoal: awareness. Audience: adultos 35-65 que controlan su salud en casa.\nConstraints: Spanish (es_AR), no health or efficacy claims, include a 'consult your healthcare professional' line.\nUse the connected social-media plugin only to LIST scheduling options. Return the draft and wait for human approval before any publish call.",
+          "expected_return": "draft text + suggested schedule; no publish tool call"
+        }
+      },
+      "thread": [
+        {
+          "at": "2026-11-10T23:19:29.155Z",
+          "author": "Operator",
+          "body": "**Operator handoff (DRY RUN, nothing was sent)** — channel: `grok-bot`. First draft.\n\n```json\n{\n  \"channel\": \"grok-bot\",\n  \"dry_run\": true,\n  \"revision\": 0,\n  \"handoff\": {\n    \"how_it_connects\": \"Grok Bot custom MCP server / plugin (Settings -> Plugins). Paperclip side: external agent or HTTP adapter.\",\n    \"instruction\": \"Task for Grok Bot (dry run, do not publish): prepare a social post draft for \\\"Tensiómetro digital de brazo\\\".\\nGoal: awareness. Audience: adultos 35-65 que controlan su salud en casa.\\nConstraints: Spanish (es_AR), no health or efficacy claims, include a 'consult your healthcare professional' line.\\nUse the connected social-media plugin only to LIST scheduling options. Return the draft and wait for human approval before any publish call.\",\n    \"expected_return\": \"draft text + suggested schedule; no publish tool call\"\n  }\n}\n```\n\nNext: reviewer checks compliance; a human approves before this is marked done."
+        },
+        {
+          "at": "2026-11-10T23:19:31.777Z",
+          "author": "Reviewer",
+          "body": "**Reviewer: APPROVED.** Checks passed: dry_run flag, banned-claims scan, channel rules (opt-out / disclaimer / length)."
+        }
+      ]
+    }
+  ]
+}

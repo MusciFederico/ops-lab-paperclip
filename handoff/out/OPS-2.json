@@ -1,0 +1,39 @@
+{
+  "task": "OPS-2",
+  "title": "WhatsApp template: novedades de producto (needs human approval)",
+  "payload": {
+    "channel": "whatsapp",
+    "dry_run": true,
+    "revision": 0,
+    "audience_rule": "Only contacts with recorded opt-in. Template must be pre-approved in Meta Business Manager.",
+    "api_calls": [
+      {
+        "method": "POST",
+        "url": "https://graph.facebook.com/v27.0/{PHONE_NUMBER_ID}/messages",
+        "body": {
+          "messaging_product": "whatsapp",
+          "to": "{E164_OPTED_IN_NUMBER}",
+          "type": "template",
+          "template": {
+            "name": "novedades_producto",
+            "language": {
+              "code": "es_AR"
+            },
+            "components": [
+              {
+                "type": "body",
+                "parameters": [
+                  {
+                    "type": "text",
+                    "text": "{FIRST_NAME}"
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      }
+    ],
+    "template_body_for_approval": "Hola {{1}}, te escribimos de la tienda. Tenemos novedades de Tensiómetro digital de brazo que pediste conocer. Ya está disponible con envío a todo el país. Respondé BAJA para dejar de recibir mensajes."
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "name": "ops-lab-paperclip",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Paperclip multi-agent workflow demo with compliance review and human approval",
+  "scripts": {
+    "seed": "node scripts/seed.mjs",
+    "export": "node scripts/export.mjs",
+    "test": "node --test"
+  }
+}
