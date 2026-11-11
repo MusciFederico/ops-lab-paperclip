@@ -1,6 +1,5 @@
 # Ops Lab — Paperclip multi-agent workflow
 
-> **¿Primera vez?** Seguí [`EMPEZA_AQUI.md`](EMPEZA_AQUI.md): tiene el paso a paso para Windows, desde PowerShell hasta GitHub, Vercel, Loom y entrega en TIM.
 
 Demo individual de una compañía mínima de agentes para operaciones de Growth en una empresa de dispositivos médicos.
 
